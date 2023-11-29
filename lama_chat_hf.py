@@ -15,7 +15,7 @@ bnb_config = transformers.BitsAndBytesConfig(
 )
 
 # begin initializing HF items, need auth token for these
-hf_auth = '<YOUR_API_KEY>'
+hf_auth = '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'
 model_config = transformers.AutoConfig.from_pretrained(
     model_id,
     use_auth_token=hf_auth
