@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
-from lama_chat import get_response , create_dialouge
+from lama_chat_hf import get_response , create_dialouge
+from lama_chat_lc import get_response , create_dialouge
 
 
 app = Flask(__name__)
