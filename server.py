@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
-from lama_chat_hf import get_response , create_dialouge
-from lama_chat_lc import get_response , create_dialouge
+from lama_chat_hf import generate_text #, create_dialouge
+from lama_chat_lc import generate_text #, create_dialouge
 
 
 app = Flask(__name__)
@@ -32,9 +32,6 @@ def get_form_data():
 
 
 
-
-
-
 if __name__ == "__main__":
 
-    app.run(port=6829)
+    app.run(port=5000)
