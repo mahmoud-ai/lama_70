@@ -27,7 +27,8 @@ model = transformers.AutoModelForCausalLM.from_pretrained(
     config=model_config,
     quantization_config=bnb_config,
     device_map='auto',
-    use_auth_token=hf_auth
+    use_auth_token=hf_auth, 
+    local_files_only=True
 )
 model.eval()
 print(f"Model loaded on {device}")
