@@ -62,7 +62,7 @@ def create_dialogue(crisis, sector, is_injuries=0):
         [{"role": "system", "content": system_guidance }, {"role": "user", "content": prompt_base}]
     ]
 
-    return dialogs
+    return f"{dialogs}"
 
 
 generate_text = transformers.pipeline(
