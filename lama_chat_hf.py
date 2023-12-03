@@ -43,8 +43,8 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
 
 
 def create_dialogue(crisis, sector, is_injuries=0):
-    #crisis = translate(crisis, tgt_lang="english")
-    #sector = translate(sector, tgt_lang="english")
+    crisis = translate(crisis, tgt_lang="english")
+    sector = translate(sector, tgt_lang="english")
 
     sector_messages = {
         "health": f"It is imperative to consistently make decisions that safeguard the health of citizens, mitigate the risk of potential natural disasters, and offer recommendations aimed at preventing such occurrences.",  # Health sector guidance
@@ -80,8 +80,8 @@ generate_text = transformers.pipeline(
 )
 
 #res = translate(generate_text(create_dialogue(crisis="تعرض احد الجنود المصريين لعيار ناري من قبل الجنود الاسرائيليين ",sector="العلاقات الخارجية",is_injuries=0)), tgt_lang="arb")
-res =generate_text(create_dialogue(crisis="the rise of the price of dollar ",sector="economic",is_injuries=0))
-#print(res[0])
+res =generate_text(create_dialogue(crisis="ارتفاع سعر صرف الدولار الي 50 جنيه",sector="economic",is_injuries=0))
+print(res[0])
 
-print(res[0]["generated_text"])
+#print(res[0]["generated_text"])
 
