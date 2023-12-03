@@ -40,8 +40,8 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
 
 
 def create_dialogue(crisis, sector, is_injuries=0):
-    crisis = translate_text(crisis, "english")
-    sector = translate_text(sector, "english")
+    #crisis = translate_text(crisis, "english")
+    #sector = translate_text(sector, "english")
 
     sector_messages = {
         "health": f"It is imperative to consistently make decisions that safeguard the health of citizens, mitigate the risk of potential natural disasters, and offer recommendations aimed at preventing such occurrences. So, give me a short answer about {crisis} ",  # Health sector guidance
@@ -52,13 +52,11 @@ def create_dialogue(crisis, sector, is_injuries=0):
         "media": f" Compliance with the regulations set forth by the unions associated with this sector is imperative, encompassing both audio-visual and written domains. So, give me a short answer about {crisis} "  # Media sector guidance
     }
 
-    prompt_base = f"As an Egyptian political man Please list the suggested actions from a {sector} perspective that a nation should take in response to a {crisis}"
+    prompt_base = f"As an Egyptian political man Please list the suggested actions from a {sector} perspective that a nation should take in response to a {crisis} , "
     if is_injuries:
         prompt_base += " Taking into account the presence of dead and injured  people"
-    else:
-        prompt_base += ","
     
-    system_guidance = sector_messages.get(sector, "act as an Egyptian political man without emojis,")
+    system_guidance = sector_messages.get(sector, "answer without emojis ,")
 
     dialogs = [
         [{"role": "system", "content": system_guidance }, {"role": "user", "content": prompt_base}]
@@ -68,7 +66,8 @@ def create_dialogue(crisis, sector, is_injuries=0):
 
 
 generate_text = transformers.pipeline(
-    model=model, tokenizer=tokenizer,
+    model=model,
+    tokenizer=tokenizer,
     return_full_text=True,  # langchain expects the full text
     task='text-generation',
     # we pass model parameters here too
@@ -77,6 +76,6 @@ generate_text = transformers.pipeline(
     repetition_penalty=1.1  # without this output begins repeating
 )
 
-res = generate_text(create_dialogue("train accident in desouk-kafr esh-sheikh road","health",1)
+res = generate_text(create_dialogue(crisis="train accident in desouk-kafr esh-sheikh road",sector="health",is_injuries=1)
 print(res[0]["generated_text"])
 
