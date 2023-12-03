@@ -19,7 +19,8 @@ bnb_config = transformers.BitsAndBytesConfig(
 hf_auth = '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'
 model_config = transformers.AutoConfig.from_pretrained(
     model_id,
-    use_auth_token=hf_auth
+    use_auth_token=hf_auth,
+    local_files_only=True
 )
 
 model = transformers.AutoModelForCausalLM.from_pretrained(
@@ -36,7 +37,8 @@ print(f"Model loaded on {device}")
 
 tokenizer = transformers.AutoTokenizer.from_pretrained(
     model_id,
-    use_auth_token=hf_auth
+    use_auth_token=hf_auth,
+    local_files_only=True
 )
 
 
