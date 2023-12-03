@@ -1,5 +1,6 @@
 from torch import cuda, bfloat16
 import transformers
+from translator import translate
 
 model_id = 'meta-llama/Llama-2-70b-chat-hf'
 
