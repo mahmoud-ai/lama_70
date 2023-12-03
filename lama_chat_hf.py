@@ -76,6 +76,6 @@ generate_text = transformers.pipeline(
     repetition_penalty=1.1  # without this output begins repeating
 )
 
-res = generate_text(create_dialogue(crisis="train accident in desouk-kafr esh-sheikh road",sector="health",is_injuries=1)
+res = generate_text(create_dialogue(crisis="train accident in desouk-kafr esh-sheikh road",sector="health",is_injuries=1))
 print(res[0]["generated_text"])
 
