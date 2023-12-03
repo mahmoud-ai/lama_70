@@ -80,8 +80,8 @@ generate_text = transformers.pipeline(
 )
 
 #res = translate(generate_text(create_dialogue(crisis="تعرض احد الجنود المصريين لعيار ناري من قبل الجنود الاسرائيليين ",sector="العلاقات الخارجية",is_injuries=0)), tgt_lang="arb")
-res =generate_text(create_dialogue(crisis="ارتفاع سعر صرف الدولار الي 50 جنيه",sector="economic",is_injuries=0))
-print(res[0])
+res =generate_text(create_dialogue(crisis="the rise of the price of dollar",sector="economic",is_injuries=0))
+#print(res[0])
 
-#print(res[0]["generated_text"])
+print(res[0]["generated_text"])
 
