@@ -37,38 +37,30 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
     use_auth_token=hf_auth
 )
 
-def create_dialouge(crisis, sector,is_injuries=0):
-    crisis=translate_text(crisis, "english")
-    sector=translate_text(sector, "english")
+
+def create_dialogue(crisis, sector, is_injuries=0):
+    crisis = translate_text(crisis, "english")
+    sector = translate_text(sector, "english")
+
+    sector_messages = {
+        "health": f"It is imperative to consistently make decisions that safeguard the health of citizens, mitigate the risk of potential natural disasters, and offer recommendations aimed at preventing such occurrences. So, give me a short answer about {crisis} ",  # Health sector guidance
+        "national security": f"Your decisions should be geared towards ensuring Egyptian national security and the safety of the people, all while respecting international and diplomatic boundaries. So, give me a short answer about {crisis} ",  # National security sector guidance
+        "economic": f"You are required to make decisions that serve the best interests of the nation's economy, considering prevailing economic conditions, the stock market, and the guidance of the Central Bank of Egypt. Give a short answer about {crisis}",  # Economic sector guidance
+        "education": f" You are tasked with making decisions that prioritize the best interests of the students, fostering their learning experiences, and offering recommendations that contribute to the advancement of education. So, give me a short answer about {crisis} ",  # Education sector guidance
+        "foreign policy": f" The decision must align accurately with the policies and laws of the Arab Republic of Egypt, ensuring it is in the best interest of the country, all the while upholding strong international diplomatic relations. So, give me a short answer about {crisis} ",  # Foreign policy sector guidance
+        "media": f" Compliance with the regulations set forth by the unions associated with this sector is imperative, encompassing both audio-visual and written domains. So, give me a short answer about {crisis} "  # Media sector guidance
+    }
+
+    prompt_base = f"As an Egyptian political man Please list the suggested actions from a {sector} perspective that a nation should take in response to a {crisis}"
     if is_injuries:
-        prompt = f"As an Egyptian political man Please list the suggested actions from a {sector} perspective that a nation should take in response to a {crisis} Taking into account the presence of dead and injured  people, formatted as one action per line ending with a '+'."
+        prompt_base += " Taking into account the presence of dead and injured  people"
     else:
-        prompt = f"As an Egyptian political man Please list the suggested actions from a {sector} perspective that a nation should take in response to a {crisis}, formatted as one action per line ending with a '+'."
+        prompt_base += ","
     
-    # create system guidance
-    system_guidance= f"act as an Egyptian political man without emojis."
+    system_guidance = sector_messages.get(sector, "act as an Egyptian political man without emojis,")
 
-    if sector == "health":
-        system_guidance =  f"It is imperative to consistently make decisions that safeguard the health of citizens, mitigate the risk of potential natural disasters, and offer recommendations aimed at preventing such occurrences. So, give me a short answer about {crisis} without emojis."
-    elif sector == "national security":
-        system_guidance =  f"Your decisions should be geared towards ensuring Egyptian national security and the safety of the people, all while respecting international and diplomatic boundaries. So, give me a short answer about {crisis} without emojis."
-    elif sector == "economic":
-        system_guidance =  f"You are required to make decisions that serve the best interests of the nation's economy, considering prevailing economic conditions, the stock market, and the guidance of the Central Bank of Egypt. Give a short answer about {crisis} without emojis."
-    elif sector == "education":
-        system_guidance =f" You are tasked with making decisions that prioritize the best interests of the students, fostering their learning experiences, and offering recommendations that contribute to the advancement of education. So, give me a short answer about {crisis} without emojis."
-    elif sector == "foreign policy":
-        system_guidance = f" The decision must align accurately with the policies and laws of the Arab Republic of Egypt, ensuring it is in the best interest of the country, all the while upholding strong international diplomatic relations. So, give me a short answer about {crisis} without emojis."
-    elif sector == "media":
-        system_guidance = f" Compliance with the regulations set forth by the unions associated with this sector is imperative, encompassing both audio-visual and written domains. So, give me a short answer about {crisis} without emojis."
-
-
-    # create dialog
-    
-    dialogs: List[Dialog] = [
-        [
-            {"role": "system", "content": system_guidance },  
-            {"role": "user", "content": prompt}
-        ]
+    dialogs = [
+        [{"role": "system", "content": system_guidance }, {"role": "user", "content": prompt_base}]
     ]
 
     return dialogs
@@ -79,11 +71,11 @@ generate_text = transformers.pipeline(
     return_full_text=True,  # langchain expects the full text
     task='text-generation',
     # we pass model parameters here too
-    temperature=0.0,  # 'randomness' of outputs, 0.0 is the min and 1.0 the max
+    temperature=0.1,  # 'randomness' of outputs, 0.0 is the min and 1.0 the max
     max_new_tokens=512,  # mex number of tokens to generate in the output
     repetition_penalty=1.1  # without this output begins repeating
 )
 
-res = generate_text("Explain to me the difference between Arabic union and Urobian union ?")
+res = generate_text(create_dialogue("train accident in desouk-kafr esh-sheikh road","health",1)
 print(res[0]["generated_text"])
 
