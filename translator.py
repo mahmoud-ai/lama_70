@@ -25,3 +25,4 @@ def translate(text, tgt_lang):
       print(response.text)  # Print the error if failed
 
 #print(translate("واسحب بساطك من بلاط الحاكم العربي حتي لا يعلقها وساما", tgt_lang="english"))
+print(translate("my name is sisi", tgt_lang="arabic"))
