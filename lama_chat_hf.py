@@ -40,8 +40,8 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
 
 
 def create_dialogue(crisis, sector, is_injuries=0):
-    #crisis = translate_text(crisis, "english")
-    #sector = translate_text(sector, "english")
+    crisis = translate(crisis, tgt_lang="english")
+    sector = translate(sector, tgt_lang="english")
 
     sector_messages = {
         "health": f"It is imperative to consistently make decisions that safeguard the health of citizens, mitigate the risk of potential natural disasters, and offer recommendations aimed at preventing such occurrences.",  # Health sector guidance
@@ -76,6 +76,6 @@ generate_text = transformers.pipeline(
     repetition_penalty=1.1  # without this output begins repeating
 )
 
-res = generate_text(create_dialogue(crisis="train accident in desouk-kafr esh-sheikh road",sector="health",is_injuries=1))
+res = translate(generate_text(create_dialogue(crisis="train accident in desouk-kafr esh-sheikh road",sector="health",is_injuries=1)), tgt_lang="arabic")
 print(res[0]["generated_text"])
 
