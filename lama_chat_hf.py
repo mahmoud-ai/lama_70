@@ -80,7 +80,7 @@ generate_text = transformers.pipeline(
 )
 
 res = translate(generate_text(create_dialogue(crisis="تعرض احد الجنود المصريين لعيار ناري من قبل الجنود الاسرائيليين ",sector="العلاقات الخارجية",is_injuries=0)), tgt_lang="arb")
-print(res[0])
+print(res)
 
 #print(res[0]["generated_text"])
 
