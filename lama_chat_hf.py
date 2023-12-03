@@ -43,8 +43,8 @@ tokenizer = transformers.AutoTokenizer.from_pretrained(
 
 
 def create_dialogue(crisis, sector, is_injuries=0):
-    crisis = translate(crisis, tgt_lang="english")
-    sector = translate(sector, tgt_lang="english")
+    #crisis = translate(crisis, tgt_lang="english")
+    #sector = translate(sector, tgt_lang="english")
 
     sector_messages = {
         "health": f"It is imperative to consistently make decisions that safeguard the health of citizens, mitigate the risk of potential natural disasters, and offer recommendations aimed at preventing such occurrences.",  # Health sector guidance
