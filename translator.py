@@ -24,4 +24,4 @@ def translate(text, tgt_lang):
       print("Failed with status code:", response.status_code)
       print(response.text)  # Print the error if failed
 
-print(translate("واسحب بساطك من بلا الحاكم العربي حتي لا يعلقها وساما", tgt_lang="english"))
+print(translate("واسحب بساطك من بلاط الحاكم العربي حتي لا يعلقها وساما", tgt_lang="english"))
