@@ -79,6 +79,9 @@ generate_text = transformers.pipeline(
     repetition_penalty=1.1  # without this output begins repeating
 )
 
-res = translate(generate_text(create_dialogue(crisis="train accident in desouk-kafr esh-sheikh road",sector="health",is_injuries=1)), tgt_lang="arb")
-print(res[0]["generated_text"])
+#res = translate(generate_text(create_dialogue(crisis="تعرض احد الجنود المصريين لعيار ناري من قبل الجنود الاسرائيليين ",sector="العلاقات الخارجية",is_injuries=0)), tgt_lang="arb")
+#print(res)
+print(translate("مصر هي امي","english")
+print(translate("every think is ok","arb")
+#print(res[0]["generated_text"])
 
